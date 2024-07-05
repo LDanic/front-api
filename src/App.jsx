@@ -6,36 +6,45 @@ import ReactFlow, {
   useNodesState,
   useEdgesState,
   addEdge,
+  Panel
 } from 'reactflow';
 
 import 'reactflow/dist/style.css';
 import './styles/global.css';
 import CustomNode from './components/CustomNode';
 
+let id = 1;
 const initialNodes = [
   {
-    id: '1',
+    id: id.toString(),
     type: 'customNode',
     position: { x: 0, y: 0 },
     data: {
       label: null,
     },
   },
-  {
-    id: '2',
-    type: 'customNode',
-    position: { x: 0, y: 100 },
-    data: {
-      label: null,
-    },
-  },
 ];
 
-const initialEdges = [{ id: 'e1-2', source: '1', target: '2' }];
+const initialEdges = [];
 
 const nodeTypes = {
   customNode: CustomNode,
 };
+
+function createNode() {
+  id++;
+  return {
+    id: id.toString(),
+    type: 'customNode',
+    position: {
+      x: window.innerWidth/2,
+      y: window.innerHeight/2,
+    },
+    data: {
+      label: null,
+    },
+  };
+}
 
 export default function App() {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
@@ -57,6 +66,11 @@ export default function App() {
       >
         <Controls />
         <Background variant="dots" gap={12} size={1} />
+        <Panel position="top-right">
+          <button onClick={
+            () => setNodes((nodes) => [...nodes, createNode()])
+          }>Hola</button>
+        </Panel>
       </ReactFlow>
     </div>
   );
