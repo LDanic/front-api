@@ -1,0 +1,26 @@
+.custom-node {
+  display: flex;
+  flex-direction: column; /* Establece la dirección de los elementos */
+  background-color: white;
+  padding: 10px;
+}
+
+.custom-node-row {
+  display: flex;
+}
+
+.custom-node-column {
+  border: 1px solid black;
+  display: flex;
+}
+
+.custom-node-column input {
+  width: 100%; /* Ocupa todo el espacio disponible en la columna */
+  border: none;
+  padding: 5px;
+  background-color: cadetblue;
+}
+
+.add-row-button{
+  margin-top: 5px;
+}
