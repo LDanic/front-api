@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import ReactFlow, {
   MiniMap,
   Controls,
@@ -12,6 +12,7 @@ import ReactFlow, {
 import 'reactflow/dist/style.css';
 import './styles/global.css';
 import CustomNode from './components/CustomNode';
+import PanelComponent from './components/PanelComponent.jsx';
 
 let id = 1;
 const initialNodes = [
@@ -37,8 +38,8 @@ function createNode() {
     id: id.toString(),
     type: 'customNode',
     position: {
-      x: window.innerWidth/2,
-      y: window.innerHeight/2,
+      x: window.innerWidth / 2,
+      y: window.innerHeight / 2,
     },
     data: {
       label: null,
@@ -49,11 +50,18 @@ function createNode() {
 export default function App() {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+  const [projectName, setProjectName] = useState(''); // State to handle project name
+
 
   const onConnect = useCallback(
     (params) => setEdges((eds) => addEdge(params, eds)),
     [setEdges],
   );
+
+  // New function to handle state changes from PanelComponent
+  const handlePanelStateChange = useCallback((panelState) => {
+    console.log(panelState);
+  }, []);
 
   return (
     <div className="reactflow-wrapper">
@@ -67,9 +75,11 @@ export default function App() {
         <Controls />
         <Background variant="dots" gap={12} size={1} />
         <Panel position="top-right">
-          <button onClick={
-            () => setNodes((nodes) => [...nodes, createNode()])
-          }>Hola</button>
+          <button onClick={() => setNodes((nodes) => [...nodes, createNode()])}>Add table</button>
+        </Panel>
+
+        <Panel position="top-left">
+          <PanelComponent onProjectNameChange={(value) => setProjectName(value)} onStateChange={handlePanelStateChange} />
         </Panel>
       </ReactFlow>
     </div>
