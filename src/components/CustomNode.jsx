@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import { Handle, Position } from 'reactflow';
 import './NodeStyles.css';
 
-const CustomNode = ({ data }) => {
+const CustomNode = ({ data, isConnectable }) => {
   const initialColumns = [
     { id: 1, text: 'restricciones' },
     { id: 2, text: 'Nombre' },
@@ -42,6 +43,30 @@ const CustomNode = ({ data }) => {
         </div>
       ))}
       <button onClick={addRow} className="add-row-button">Añadir atributo</button>
+      <Handle
+        type="source"
+        position="right"
+        id="a"
+        isConnectable={isConnectable}
+      />
+      <Handle
+        type="target"
+        position="left"
+        id="b"
+        isConnectable={isConnectable}
+      />
+      <Handle
+        type="source"
+        position={Position.Bottom}
+        id="c"
+        isConnectable={isConnectable}
+      />
+      <Handle
+        type="target"
+        position={Position.Top}
+        id="d"
+        isConnectable={isConnectable}
+      />
     </div>
   );
 };

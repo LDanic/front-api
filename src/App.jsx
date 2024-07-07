@@ -1,6 +1,5 @@
 import React, { useState, useCallback } from 'react';
 import ReactFlow, {
-  MiniMap,
   Controls,
   Background,
   useNodesState,
@@ -8,18 +7,18 @@ import ReactFlow, {
   addEdge,
   Panel
 } from 'reactflow';
-
 import 'reactflow/dist/style.css';
 import './styles/global.css';
 import CustomNode from './components/CustomNode';
 import PanelComponent from './components/PanelComponent.jsx';
+import CustomEdge from './components/CustomEdge';
 
 let id = 1;
 const initialNodes = [
   {
     id: id.toString(),
     type: 'customNode',
-    position: { x: 0, y: 0 },
+    position: { x: window.innerWidth / 2, y: window.innerHeight / 2},
     data: {
       label: null,
     },
@@ -30,6 +29,10 @@ const initialEdges = [];
 
 const nodeTypes = {
   customNode: CustomNode,
+};
+
+const edgeTypes = {
+  'custom-edge': CustomEdge,
 };
 
 function createNode() {
@@ -54,7 +57,7 @@ export default function App() {
 
 
   const onConnect = useCallback(
-    (params) => setEdges((eds) => addEdge(params, eds)),
+    (params) => setEdges((eds) => addEdge({ ...params, type: 'custom-edge', data: { label: "" }}, eds)),
     [setEdges],
   );
 
@@ -67,10 +70,12 @@ export default function App() {
     <div className="reactflow-wrapper">
       <ReactFlow
         nodes={nodes}
+        edges={edges}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
         nodeTypes={nodeTypes}
+        edgeTypes={edgeTypes}
       >
         <Controls />
         <Background variant="dots" gap={12} size={1} />
