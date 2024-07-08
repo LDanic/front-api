@@ -14,11 +14,20 @@
   display: flex;
 }
 
-.custom-node-column input {
-  width: 100%; /* Ocupa todo el espacio disponible en la columna */
+.custom-node-column input, p, select {
+  width: 150px; /* Ocupa todo el espacio disponible en la columna */
   border: none;
   padding: 5px;
   background-color: cadetblue;
+}
+
+.custom-node-column p {
+  color: rgb(39, 39, 39);
+  font-weight: bold;
+}
+
+.custom-node-column select {
+  width: 160px; 
 }
 
 .add-row-button{

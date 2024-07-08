@@ -1,30 +1,33 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Handle, Position } from 'reactflow';
 import './NodeStyles.css';
 
 const CustomNode = ({ data, isConnectable }) => {
   const initialColumns = [
-    { id: 1, text: 'restricciones' },
-    { id: 2, text: 'Nombre' },
-    { id: 3, text: 'tipo Dato' },
+    { id: 1, type: 'label', value: 'Restricciones' },
+    { id: 2, type: 'label', value: 'Nombre' },
+    { id: 3, type: 'label', value: 'Tipo Dato' },
   ];
 
   const [rows, setRows] = useState([[...initialColumns]]); // Inicialmente una fila con las columnas iniciales
 
   const addRow = () => {
-    const newRow = Array.from({ length: initialColumns.length }, (_, index) => ({
-      id: index + 1,
-      text: '',
-    }));
+    const newRow = [{ id: 1, type: 'input', value: "" }, { id: 2, type: 'input', value: "" }, { id: 3, type: 'select', value: "INT" }]; // Nueva fila con un solo campo [id, text
+
     setRows([...rows, newRow]); // Agrega la nueva fila al estado de filas
+
   };
 
   const handleInputChange = (event, rowIndex, colIndex) => {
     const updatedRows = [...rows];
-    updatedRows[rowIndex][colIndex].text = event.target.value;
-    console.log(updatedRows[rowIndex][colIndex].text)
+    updatedRows[rowIndex][colIndex].value = event.target.value;
+    // console.log(updatedRows[rowIndex][colIndex].text)
     setRows(updatedRows);
   };
+
+  useEffect(() => {
+    data.rows = rows;
+  }, [rows]);
 
   return (
     <div className="custom-node">
@@ -32,12 +35,29 @@ const CustomNode = ({ data, isConnectable }) => {
         <div key={rowIndex} className="custom-node-row">
           {row.map((col, colIndex) => (
             <div key={colIndex} className="custom-node-column">
-              <input
-                type="text"
-                value={col.text}
-                onChange={(e) => handleInputChange(e, rowIndex, colIndex)}
-                placeholder={col.text}
-              />
+
+              {col.type === "label" ? (
+                <p>
+                  {col.value}
+                </p>
+              ) : col.type === "select" ? (
+                <select
+                  value={col.value}
+                  onChange={(e) => handleInputChange(e, rowIndex, colIndex)}
+                >
+                  <option value="INT">INT</option>
+                  <option value="DECIMAL">DECIMAL</option>
+                  <option value="VARCHAR">VARCHAR</option>
+                  <option value="BINARY">BINARY</option>
+                </select>
+              ) : (
+                <input
+                  type={"text"}
+                  value={col.text}
+                  onChange={(e) => handleInputChange(e, rowIndex, colIndex)}
+                />
+              )}
+
             </div>
           ))}
         </div>

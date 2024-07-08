@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
-function PanelComponent({ onProjectNameChange, onStateChange }) {
+function PanelComponent({ onStateChange }) {
+    const [projectName, setProjectName] = useState(''); // State to handle project name
     const [selectedTech, setSelectedTech] = useState('');
     const [selectedOS, setSelectedOS] = useState('');
     const [loginRequired, setLoginRequired] = useState('');
@@ -9,9 +10,9 @@ function PanelComponent({ onProjectNameChange, onStateChange }) {
 
     useEffect(() => {
         if (onStateChange) {
-            onStateChange({ selectedTech, selectedOS, loginRequired, port });
+            onStateChange({ projectName, selectedTech, selectedOS, loginRequired, port });
         }
-    }, [selectedTech, selectedOS, loginRequired, port, onStateChange]);
+    }, [projectName, selectedTech, selectedOS, loginRequired, port, onStateChange]);
 
 
     const handleTechChange = (event) => {
@@ -37,7 +38,7 @@ function PanelComponent({ onProjectNameChange, onStateChange }) {
             <input
                 id="projectName"
                 type="text"
-                onChange={(e) => onProjectNameChange(e.target.value)}
+                onChange={(e) => setProjectName(e.target.value)}
                 placeholder="Enter project name"
                 style={{ marginTop: '10px', padding: '10px', width: 'calc(100% - 20px)' }}
             />
