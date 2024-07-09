@@ -1,10 +1,11 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import ReactFlow, {
   Controls,
   Background,
   useNodesState,
   useEdgesState,
   addEdge,
+  MarkerType,
   Panel
 } from 'reactflow';
 import 'reactflow/dist/style.css';
@@ -12,6 +13,7 @@ import './styles/global.css';
 import CustomNode from './components/CustomNode';
 import PanelComponent from './components/PanelComponent.jsx';
 import CustomEdge from './components/CustomEdge';
+import { generateXML, generateRelation } from './utils/XMLgenerator.js';
 
 let id = 1;
 const initialNodes = [
@@ -23,9 +25,28 @@ const initialNodes = [
       label: null,
     },
   },
+
+  {
+    id: "2",
+    type: 'customNode',
+    position: { x: window.innerWidth / 2, y: window.innerHeight / 2 },
+    data: {
+      label: null,
+    },
+  },
 ];
 
-const initialEdges = [];
+const initialEdges = [ 
+//    {
+//   id: '1-2',
+//   source: '1',
+//   target: '2',
+//   sourceHandle: 'c',
+//   targetHandle: 'a',
+//   type: 'custom-edge',
+//   markerEnd: { type: MarkerType.ArrowClosed },
+// },
+];
 
 const nodeTypes = {
   customNode: CustomNode,
@@ -53,6 +74,7 @@ function createNode() {
 export default function App() {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+  const [panelState, setPanelState] = useState({});
 
 
   const onConnect = useCallback(
@@ -63,7 +85,11 @@ export default function App() {
   // New function to handle state changes from PanelComponent
   const handlePanelStateChange = useCallback((panelState) => {
     // console.log(panelState);
+    setPanelState(panelState);
   }, []);
+
+
+  useEffect(() => {console.log(edges)}, [edges]);
 
   return (
     <div className="reactflow-wrapper">
@@ -76,7 +102,7 @@ export default function App() {
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
       >
-  
+
         <Background variant="dots" gap={12} size={1} />
         <Panel position="top-right">
           <button onClick={() => setNodes((nodes) => [...nodes, createNode()])}>Add table</button>
@@ -89,19 +115,22 @@ export default function App() {
         <Panel position="bottom-left" >
           <button style={{ marginLeft: '100px' }} onClick={() => {
             nodes.forEach(node => {
-              console.log(`Node ID: ${node.id} Title: ${node.data.headerValue} Rows:`);
-              if (node.type === 'customNode' && node.data.rows) {
-                node.data.rows.forEach((row, index) => {
-                  console.log(`Row ${index + 1}:`, row);
-                });
-              } else {
-                console.log('No rows');
-              }
-            });
+               console.log(`Node ID: ${node.id} Title: ${node.data.headerValue} Rows:`);
+            //   if (node.type === 'customNode' && node.data.rows) {
+            //     node.data.rows.forEach((row, index) => {
+            //       console.log(`Row ${index + 1}:`, row);
+            //     });
+            //   } else {
+            //     console.log('No rows');
+            //   }
+             });
 
-            edges.forEach((edge) => {
-              console.log(edge);
-            });
+            //  edges.forEach((edge) => {
+            //    console.log(edge);
+            //  });
+
+            // console.log(generateRelation(edges, '2'))
+            // console.log(generateXML(nodes, edges, panelState))
           }}>Print Rows</button>
         </Panel>
         <Controls />
