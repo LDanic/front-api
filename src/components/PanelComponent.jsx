@@ -33,7 +33,7 @@ function PanelComponent({ onStateChange }) {
     };
 
     return (
-        <div style={{ padding: '20px', borderRight: '1px solid #ccc', height: '100vh' }}>
+        <div style={{ padding: '20px', borderRight: '1px solid #ccc', height: '100vh', backgroundColor: 'black' }}>
             <label htmlFor="projectName">Project Name:</label>
             <input
                 id="projectName"

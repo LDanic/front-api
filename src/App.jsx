@@ -56,7 +56,7 @@ export default function App() {
 
 
   const onConnect = useCallback(
-    (params) => setEdges((eds) => addEdge({ ...params, type: 'custom-edge', data: { label: "" } }, eds)),
+    (params) => setEdges((eds) => addEdge({ ...params, type: 'custom-edge', data: { label: "" }, }, eds)),
     [setEdges],
   );
 
@@ -76,7 +76,7 @@ export default function App() {
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
       >
-        <Controls />
+  
         <Background variant="dots" gap={12} size={1} />
         <Panel position="top-right">
           <button onClick={() => setNodes((nodes) => [...nodes, createNode()])}>Add table</button>
@@ -89,7 +89,7 @@ export default function App() {
         <Panel position="bottom-left" >
           <button style={{ marginLeft: '100px' }} onClick={() => {
             nodes.forEach(node => {
-              console.log(`Node ID: ${node.id} Rows:`);
+              console.log(`Node ID: ${node.id} Title: ${node.data.headerValue} Rows:`);
               if (node.type === 'customNode' && node.data.rows) {
                 node.data.rows.forEach((row, index) => {
                   console.log(`Row ${index + 1}:`, row);
@@ -98,8 +98,13 @@ export default function App() {
                 console.log('No rows');
               }
             });
+
+            edges.forEach((edge) => {
+              console.log(edge);
+            });
           }}>Print Rows</button>
         </Panel>
+        <Controls />
       </ReactFlow>
     </div>
   );

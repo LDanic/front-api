@@ -5,6 +5,20 @@
   padding: 10px;
 }
 
+.custom-node-header {
+  text-align: center;
+  font-weight: bold;
+  color: black;
+}
+
+.custom-node-header input{
+  background-color: white;
+  border: none;
+  text-align: center;
+  font-weight: bold;
+  color: black;
+}
+
 .custom-node-row {
   display: flex;
 }

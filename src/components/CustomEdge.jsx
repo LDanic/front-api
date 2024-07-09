@@ -4,6 +4,7 @@ import {
   EdgeLabelRenderer,
   getBezierPath,
   useReactFlow,
+  MarkerType
 } from 'reactflow';
 
 export default function CustomEdge({ id, sourceX, sourceY, targetX, targetY, data }) {
@@ -37,7 +38,11 @@ export default function CustomEdge({ id, sourceX, sourceY, targetX, targetY, dat
 
   return (
     <>
-      <BaseEdge id={id} path={edgePath} />
+      <BaseEdge 
+        id={id} 
+        path={edgePath} 
+        markerEnd={{ type: MarkerType.ArrowClosed }}
+      />
       <EdgeLabelRenderer>
         <div
           style={{
