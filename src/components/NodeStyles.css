@@ -1,6 +1,7 @@
 .custom-node {
   display: flex;
-  flex-direction: column; /* Establece la dirección de los elementos */
+  flex-direction: column;
+  /* Establece la dirección de los elementos */
   background-color: white;
   padding: 10px;
 }
@@ -11,7 +12,7 @@
   color: black;
 }
 
-.custom-node-header input{
+.custom-node-header input {
   background-color: white;
   border: none;
   text-align: center;
@@ -28,8 +29,12 @@
   display: flex;
 }
 
-.custom-node-column input, p, select {
-  width: 150px; /* Ocupa todo el espacio disponible en la columna */
+.custom-node-column input,
+p,
+select,
+form {
+  width: 150px;
+  /* Ocupa todo el espacio disponible en la columna */
   border: none;
   padding: 5px;
   background-color: cadetblue;
@@ -41,9 +46,63 @@
 }
 
 .custom-node-column select {
-  width: 160px; 
+  width: 160px;
 }
 
-.add-row-button{
+.add-row-button {
   margin-top: 5px;
+}
+
+.select-restriction-btn {
+  width: 150px;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: cadetblue;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content label {
+  display: block;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.dropdown-content input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.dropdown-content label:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+  background-color: cadetblue;
+  border: 1px solid black;
+  box-shadow: 0px 0px 50px #000000;
+}
+
+.dropdown button {
+  background-color: inherit;
+  background-color: rgba(0, 0, 0, 0);
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+.dropdown button:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.checkinput {
+  width: 20px !important;
 }

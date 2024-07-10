@@ -115,11 +115,11 @@ export default function App() {
              });
 
             //  edges.forEach((edge) => {
-            //    console.log(edge);
+               console.log(edges);
             //  });
 
-            console.log(generateRelation(edges, '2'))
-            // console.log(generateXML(nodes, edges, panelState))
+            // console.log(generateRelation(edges, '2'))
+            console.log(generateXML(nodes, edges, panelState))
           }}>Print Rows</button>
         </Panel>
         <Controls className='react-flow-controls'/>
