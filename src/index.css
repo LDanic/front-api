@@ -13,6 +13,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.react-flow-controls {
+  color: rgba(0, 0, 0, 0.87); /* Texto blanco semitransparente */
+}
+
 a {
   font-weight: 500;
   color: #646cff;

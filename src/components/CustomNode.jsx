@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Handle, Position } from 'reactflow';
+import { Handle, Position } from '@xyflow/react';
 import './NodeStyles.css';
 
 const CustomNode = ({ data, isConnectable }) => {
@@ -86,13 +86,13 @@ const CustomNode = ({ data, isConnectable }) => {
       <button onClick={addRow} className="add-row-button">Añadir atributo</button>
       <Handle
         type="source"
-        position="right"
+        position={Position.Right}
         id="a"
         isConnectable={isConnectable}
       />
       <Handle
-        type="target"
-        position="left"
+        type="source"
+        position={Position.Left}
         id="b"
         isConnectable={isConnectable}
       />
@@ -103,7 +103,7 @@ const CustomNode = ({ data, isConnectable }) => {
         isConnectable={isConnectable}
       />
       <Handle
-        type="target"
+        type="source"
         position={Position.Top}
         id="d"
         isConnectable={isConnectable}

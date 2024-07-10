@@ -1,19 +1,29 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import ReactFlow, {
+import {
+  ReactFlow,
   Controls,
   Background,
   useNodesState,
   useEdgesState,
   addEdge,
   MarkerType,
-  Panel
-} from 'reactflow';
-import 'reactflow/dist/style.css';
+  Panel,
+  ConnectionMode
+} from '@xyflow/react';
+import "@xyflow/react/dist/style.css";
 import './styles/global.css';
 import CustomNode from './components/CustomNode';
 import PanelComponent from './components/PanelComponent.jsx';
 import CustomEdge from './components/CustomEdge';
 import { generateXML, generateRelation } from './utils/XMLgenerator.js';
+
+const nodeTypes = {
+  customNode: CustomNode,
+};
+
+const edgeTypes = {
+  customEdge: CustomEdge,
+};
 
 let id = 1;
 const initialNodes = [
@@ -24,37 +34,9 @@ const initialNodes = [
     data: {
       label: null,
     },
-  },
+  }];
 
-  {
-    id: "2",
-    type: 'customNode',
-    position: { x: window.innerWidth / 2, y: window.innerHeight / 2 },
-    data: {
-      label: null,
-    },
-  },
-];
-
-const initialEdges = [ 
-//    {
-//   id: '1-2',
-//   source: '1',
-//   target: '2',
-//   sourceHandle: 'c',
-//   targetHandle: 'a',
-//   type: 'custom-edge',
-//   markerEnd: { type: MarkerType.ArrowClosed },
-// },
-];
-
-const nodeTypes = {
-  customNode: CustomNode,
-};
-
-const edgeTypes = {
-  'custom-edge': CustomEdge,
-};
+const initialEdges = [];
 
 function createNode() {
   id++;
@@ -76,10 +58,16 @@ export default function App() {
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const [panelState, setPanelState] = useState({});
 
-
   const onConnect = useCallback(
-    (params) => setEdges((eds) => addEdge({ ...params, type: 'custom-edge', data: { label: "" }, }, eds)),
-    [setEdges],
+    (params) =>
+      setEdges((eds) =>
+        addEdge(
+          {...params,
+            type: "customEdge",
+            markerEnd: { type: MarkerType.ArrowClosed },
+            data: { label: "" }
+          }, eds)),
+    [setEdges]
   );
 
   // New function to handle state changes from PanelComponent
@@ -101,6 +89,7 @@ export default function App() {
         onConnect={onConnect}
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
+        connectionMode={ConnectionMode.Loose}
       >
 
         <Background variant="dots" gap={12} size={1} />
@@ -129,11 +118,11 @@ export default function App() {
             //    console.log(edge);
             //  });
 
-            // console.log(generateRelation(edges, '2'))
+            console.log(generateRelation(edges, '2'))
             // console.log(generateXML(nodes, edges, panelState))
           }}>Print Rows</button>
         </Panel>
-        <Controls />
+        <Controls className='react-flow-controls'/>
       </ReactFlow>
     </div>
   );

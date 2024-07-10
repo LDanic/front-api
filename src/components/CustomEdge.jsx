@@ -1,19 +1,31 @@
-import React from 'react';
-import {
-  BaseEdge,
+import { getBezierPath, useInternalNode, BaseEdge,
   EdgeLabelRenderer,
-  getBezierPath,
-  useReactFlow,
-  MarkerType
-} from 'reactflow';
+  useReactFlow,} from "@xyflow/react";
 
-export default function CustomEdge({ id, sourceX, sourceY, targetX, targetY, data }) {
+import { getEdgeParams } from "../utils/edgesManager.js";
+import './EdgesStyles.css';
+
+function CustomEdge({ id, source, target, markerEnd, data }) {
   const { setEdges } = useReactFlow();
+  const sourceNode = useInternalNode(source);
+  const targetNode = useInternalNode(target);
+
+  if (!sourceNode || !targetNode) {
+    return null;
+  }
+
+  const { sx, sy, tx, ty, sourcePos, targetPos } = getEdgeParams(
+    sourceNode,
+    targetNode
+  );
+
   const [edgePath, labelX, labelY] = getBezierPath({
-    sourceX,
-    sourceY,
-    targetX,
-    targetY,
+    sourceX: sx,
+    sourceY: sy,
+    sourcePosition: sourcePos,
+    targetPosition: targetPos,
+    targetX: tx,
+    targetY: ty
   });
 
   const handleSelectChange = (event) => {
@@ -35,14 +47,14 @@ export default function CustomEdge({ id, sourceX, sourceY, targetX, targetY, dat
   };
 
   const labelValue = data?.label || ""; // Valor predeterminado si data.label no está definido
-
   return (
     <>
       <BaseEdge 
-        id={id} 
-        path={edgePath} 
-        markerEnd={{ type: MarkerType.ArrowClosed }}
-      />
+      id={id} 
+      path={edgePath} 
+      markerEnd={markerEnd}
+      className="custom-edge"/>
+
       <EdgeLabelRenderer>
         <div
           style={{
@@ -54,9 +66,10 @@ export default function CustomEdge({ id, sourceX, sourceY, targetX, targetY, dat
         >
           <select value={labelValue} onChange={handleSelectChange} required>
             <option disabled value="">Selecciona la relación</option>
-            <option value="uno a uno">uno a uno</option>
-            <option value="uno a muchos">uno a muchos</option>
-            <option value="muchos a muchos">muchos a muchos</option>
+            <option value="1:1">1:1</option>
+            <option value="1:n">1:n</option>
+            <option value="0:n">0:n</option>
+            <option value="0:1">0:n</option>
           </select>
         </div>
       </EdgeLabelRenderer>
@@ -64,3 +77,4 @@ export default function CustomEdge({ id, sourceX, sourceY, targetX, targetY, dat
   );
 }
 
+export default CustomEdge;
