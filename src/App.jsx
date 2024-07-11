@@ -105,13 +105,13 @@ export default function App() {
           <button style={{ marginLeft: '100px' }} onClick={() => {
             nodes.forEach(node => {
                console.log(`Node ID: ${node.id} Title: ${node.data.headerValue} Rows:`);
-            //   if (node.type === 'customNode' && node.data.rows) {
-            //     node.data.rows.forEach((row, index) => {
-            //       console.log(`Row ${index + 1}:`, row);
-            //     });
-            //   } else {
-            //     console.log('No rows');
-            //   }
+              if (node.type === 'customNode' && node.data.rows) {
+                node.data.rows.forEach((row, index) => {
+                  console.log(`Row ${index + 1}:`, row);
+                });
+              } else {
+                console.log('No rows');
+              }
              });
 
             //  edges.forEach((edge) => {

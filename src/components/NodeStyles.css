@@ -47,3 +47,22 @@
 .add-row-button{
   margin-top: 5px;
 }
+
+.delete-row-button {
+  background-color: #eb3c3a;
+  border: none;
+  color: white;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 15px;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 5px;
+  margin-top: 5px;
+}
+
+.delete-row-button:hover {
+  background-color: #9a1d1b;
+}
+

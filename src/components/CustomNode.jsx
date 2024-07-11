@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Handle, Position } from '@xyflow/react';
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import './NodeStyles.css';
 
 const CustomNode = ({ data, isConnectable }) => {
@@ -14,11 +16,19 @@ const CustomNode = ({ data, isConnectable }) => {
 
 
   const addRow = () => {
-    const newRow = [{ id: 1, type: 'select-res', value: "" }, { id: 2, type: 'input', value: "" }, { id: 3, type: 'select-dt', value: "INT" }]; // Nueva fila con un solo campo [id, text
-
+    const newRow = [{ id: 1, type: 'select-res', value: "" }, 
+                    { id: 2, type: 'input', value: "" }, 
+                    { id: 3, type: 'select-dt', value: "INT" }];
     setRows([...rows, newRow]); // Agrega la nueva fila al estado de filas
-
   };
+
+  const deleteRow = (rowIndex) => {
+    if (rows.length > 1) { 
+      const updatedRows = rows.filter((_, index) => index !== rowIndex);
+      setRows(updatedRows);
+    }
+  };
+  
 
   const handleInputChange = (event, rowIndex, colIndex) => {
     const updatedRows = [...rows];
@@ -73,17 +83,21 @@ const CustomNode = ({ data, isConnectable }) => {
                 </select>
               ): (
                 <input
-                  type={"text"}
-                  value={col.text}
+                  type="text"
+                  value={col.value}
                   onChange={(e) => handleInputChange(e, rowIndex, colIndex)}
                 />
               )}
-
             </div>
           ))}
+          {rowIndex !== 0 && (
+            <button onClick={() => deleteRow(rowIndex)} className="delete-row-button">
+              <FontAwesomeIcon icon={faTrash} style={{color: "#ffffff",}} />
+            </button>
+          )}
         </div>
       ))}
-      <button onClick={addRow} className="add-row-button">Añadir atributo</button>
+      <button onClick={addRow} className="add-row-button">Add atribute</button>
       <Handle
         type="source"
         position={Position.Right}
