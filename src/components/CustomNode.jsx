@@ -3,6 +3,7 @@ import { Handle, Position } from '@xyflow/react';
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import './NodeStyles.css';
+import DropdownCheckboxForm from './CheckboxComponent';
 
 const CustomNode = ({ data, isConnectable }) => {
   const initialColumns = [
@@ -36,6 +37,16 @@ const CustomNode = ({ data, isConnectable }) => {
     // console.log(updatedRows[rowIndex][colIndex].text)
     setRows(updatedRows);
   };
+
+  const [checkboxState, setCheckboxState] = useState({}); // Assuming you want to store it as an object
+
+  const handleCheckboxChange = (selectedOptions) => {
+    setCheckboxState( selectedOptions );
+  };
+
+  useEffect(() => {
+    console.log(checkboxState); // This will print the checkbox state whenever it changes
+  }, [checkboxState]);
 
   useEffect(() => {
     data.rows = rows;
@@ -72,16 +83,10 @@ const CustomNode = ({ data, isConnectable }) => {
                   <option value="BINARY">BINARY</option>
                 </select>
               ) : col.type === "select-res" ? (
-                <select
-                  value={col.value}
-                  onChange={(e) => handleInputChange(e, rowIndex, colIndex)}
-                >
-                  <option value="NA">No Aplica</option>
-                  <option value="PK">PK</option>
-                  <option value="FK">FK</option>
-                  <option value="NOT NULL">NOT NULL</option>
-                </select>
-              ): (
+
+                <DropdownCheckboxForm onCheckboxChange={handleCheckboxChange} />
+
+              ) : (
                 <input
                   type="text"
                   value={col.value}
