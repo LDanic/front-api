@@ -17,35 +17,37 @@ const CustomNode = ({ data, isConnectable }) => {
 
 
   const addRow = () => {
-    const newRow = [{ id: 1, type: 'select-res', value: "" }, 
-                    { id: 2, type: 'input', value: "" }, 
-                    { id: 3, type: 'select-dt', value: "INT" }];
+    const newRow = [{ id: 1, type: 'select-res', value: "" },
+    { id: 2, type: 'input', value: "" },
+    { id: 3, type: 'select-dt', value: "INT" }];
     setRows([...rows, newRow]); // Agrega la nueva fila al estado de filas
   };
 
   const deleteRow = (rowIndex) => {
-    if (rows.length > 1) { 
+    if (rows.length > 1) {
       const updatedRows = rows.filter((_, index) => index !== rowIndex);
       setRows(updatedRows);
     }
   };
-  
+
 
   const handleInputChange = (event, rowIndex, colIndex) => {
     const updatedRows = [...rows];
     updatedRows[rowIndex][colIndex].value = event.target.value;
-    // console.log(updatedRows[rowIndex][colIndex].text)
     setRows(updatedRows);
   };
 
   const [checkboxState, setCheckboxState] = useState({}); // Assuming you want to store it as an object
 
-  const handleCheckboxChange = (selectedOptions) => {
-    setCheckboxState( selectedOptions );
+  const handleCheckboxChange = (selectedOptions, rowIndex, colIndex) => {
+    const updatedRows = [...rows];
+    updatedRows[rowIndex][colIndex].value = selectedOptions;
+    setCheckboxState(updatedRows);
   };
 
   useEffect(() => {
-    console.log(checkboxState); // This will print the checkbox state whenever it changes
+    console.log("pepe")
+    console.log(checkboxState)
   }, [checkboxState]);
 
   useEffect(() => {
@@ -84,20 +86,25 @@ const CustomNode = ({ data, isConnectable }) => {
                 </select>
               ) : col.type === "select-res" ? (
 
-                <DropdownCheckboxForm onCheckboxChange={handleCheckboxChange} />
+                <DropdownCheckboxForm
+                  onCheckboxChange={(selectedOptions) => handleCheckboxChange(selectedOptions, rowIndex, colIndex)}
+                  value={col.value} />
 
               ) : (
-                <input
-                  type="text"
-                  value={col.value}
-                  onChange={(e) => handleInputChange(e, rowIndex, colIndex)}
-                />
+                <>
+                  {false ? <input
+                    type="text"
+                    value={col.value}
+                    onChange={(e) => handleInputChange(e, rowIndex, colIndex)}
+                  /> : <>{ }</>}
+                </>
+
               )}
             </div>
           ))}
           {rowIndex !== 0 && (
             <button onClick={() => deleteRow(rowIndex)} className="delete-row-button">
-              <FontAwesomeIcon icon={faTrash} style={{color: "#ffffff",}} />
+              <FontAwesomeIcon icon={faTrash} style={{ color: "#ffffff", }} />
             </button>
           )}
         </div>

@@ -72,12 +72,11 @@ export default function App() {
 
   // New function to handle state changes from PanelComponent
   const handlePanelStateChange = useCallback((panelState) => {
-    // console.log(panelState);
     setPanelState(panelState);
   }, []);
 
 
-  useEffect(() => {console.log(edges)}, [edges]);
+
 
   return (
     <div className="reactflow-wrapper">
@@ -103,23 +102,12 @@ export default function App() {
 
         <Panel position="bottom-left" >
           <button style={{ marginLeft: '100px' }} onClick={() => {
-            nodes.forEach(node => {
-               console.log(`Node ID: ${node.id} Title: ${node.data.headerValue} Rows:`);
-              if (node.type === 'customNode' && node.data.rows) {
-                node.data.rows.forEach((row, index) => {
-                  console.log(`Row ${index + 1}:`, row);
-                });
-              } else {
-                console.log('No rows');
-              }
-             });
-
+            console.log(nodes)
             //  edges.forEach((edge) => {
                console.log(edges);
             //  });
 
-            // console.log(generateRelation(edges, '2'))
-            console.log(generateXML(nodes, edges, panelState))
+            // console.log(generateXML(nodes, edges, panelState))
           }}>Print Rows</button>
         </Panel>
         <Controls className='react-flow-controls'/>

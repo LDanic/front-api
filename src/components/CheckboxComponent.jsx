@@ -1,8 +1,25 @@
 import React, { useEffect, useState } from 'react';
 
-const DropdownCheckboxForm = ({ onCheckboxChange }) => {
+const DropdownCheckboxForm = ({ onCheckboxChange, value }) => {
     const [selectedOptions, setSelectedOptions] = useState([]);
     const [text, setText] = useState('Ninguna');
+
+    useEffect(() => {
+        setSelectedOptions(value);
+        let checkboxes = document.querySelectorAll('.checkinput');
+        console.log(checkboxes)
+        if (value.length == 0) {
+
+            // Marcar todos los checkboxes
+            checkboxes.forEach(checkbox => {
+                if(checkbox.value==value){
+                    checkbox.checked = true
+                } else {
+                    checkbox.checked = false;
+                }
+            });
+        }
+    }, [value]);
 
     const handleCheckboxChange = (event) => {
         const { value, checked } = event.target;
@@ -14,8 +31,6 @@ const DropdownCheckboxForm = ({ onCheckboxChange }) => {
                 return prevSelectedOptions.filter((option) => option !== value);
             }
         });
-
-
     };
 
     useEffect(() => {
@@ -29,7 +44,7 @@ const DropdownCheckboxForm = ({ onCheckboxChange }) => {
     }, [selectedOptions]);
 
     return (
-        <form >
+        <form>
             <div className="dropdown">
                 <button className="select-restriction-btn" type="button">{text}</button>
                 <div className="dropdown-content">
