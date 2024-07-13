@@ -32,7 +32,7 @@ const initialNodes = [
     type: 'customNode',
     position: { x: window.innerWidth / 2, y: window.innerHeight / 2 },
     data: {
-      label: null,
+      idnode: id,
     },
   }];
 
@@ -48,7 +48,7 @@ function createNode() {
       y: window.innerHeight / 2,
     },
     data: {
-      label: null,
+      idnode: id,
     },
   };
 }

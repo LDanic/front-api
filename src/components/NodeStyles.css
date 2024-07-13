@@ -121,6 +121,6 @@ form {
   background-color: rgba(0, 0, 0, 0.6);
 }
 
-.checkinput {
+.dropdown-content > label > input {
   width: 20px !important;
 }

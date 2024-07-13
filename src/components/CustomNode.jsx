@@ -88,7 +88,9 @@ const CustomNode = ({ data, isConnectable }) => {
 
                 <DropdownCheckboxForm
                   onCheckboxChange={(selectedOptions) => handleCheckboxChange(selectedOptions, rowIndex, colIndex)}
-                  value={col.value} />
+                  value={col.value} 
+                  rowIndex={rowIndex}
+                  nodeIndex={data.idnode} />
 
               ) : (
                 <>
