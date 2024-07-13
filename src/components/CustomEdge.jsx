@@ -69,7 +69,7 @@ function CustomEdge({ id, source, target, markerEnd, data }) {
             <option value="1:1">1:1</option>
             <option value="1:n">1:n</option>
             <option value="0:n">0:n</option>
-            <option value="0:1">0:n</option>
+            <option value="0:1">0:1</option>
           </select>
         </div>
       </EdgeLabelRenderer>

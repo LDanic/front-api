@@ -117,12 +117,12 @@ export default function App() {
 
         <Panel position="bottom-left" >
           <button style={{ marginLeft: '100px' }} onClick={() => {
-            console.log(nodes)
+            // console.log(nodes)
             //  edges.forEach((edge) => {
-            console.log(edges);
+            // console.log(edges);
             //  });
 
-            // console.log(generateXML(nodes, edges, panelState))
+            console.log(generateXML(nodes, edges, panelState))
           }}>Print Rows</button>
         </Panel>
         <Controls className='react-flow-controls' />

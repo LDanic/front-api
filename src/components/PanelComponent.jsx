@@ -61,22 +61,22 @@ function PanelComponent({ onStateChange }) {
                         type="radio"
                         id="nest"
                         name="tech"
-                        value="Nest"
-                        checked={selectedTech === 'Nest'}
+                        value="Nest.js"
+                        checked={selectedTech === 'Nest.js'}
                         onChange={handleTechChange}
                     />
-                    <label htmlFor="nest">Nest</label>
+                    <label htmlFor="nest.js">Nest.js</label>
                 </div>
                 <div>
                     <input
                         type="radio"
                         id="fast"
                         name="tech"
-                        value="Fast"
-                        checked={selectedTech === 'Fast'}
+                        value="Fastapi"
+                        checked={selectedTech === 'Fastapi'}
                         onChange={handleTechChange}
                     />
-                    <label htmlFor="fast">FastAPI</label>
+                    <label htmlFor="fastapi">FastAPI</label>
                 </div>
             </div>
             {/* Operating System Section */}

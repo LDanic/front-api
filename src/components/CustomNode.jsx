@@ -97,10 +97,13 @@ const CustomNode = ({ data, isConnectable }) => {
                     value={col.value}
                     onChange={(e) => handleInputChange(e, rowIndex, colIndex)}
                   /> : <>
-                    <select name="" id="" required defaultValue={""}>
+                    <select
+                      value={col.value}
+                      onChange={(e) => handleInputChange(e, rowIndex, colIndex)}
+                      required defaultValue={""}>
                       <option disabled hidden value=""> {data.conectedTables.length == 0 ? "Conecta una tabla" : "Selecciona una tabla"} </option>
-                      {data.conectedTables.map((table) => {
-                        return <option value={table}>{table}</option>
+                      {data.conectedTables.map((table, index) => {
+                        return <option key={index} value={"FK_" + table}>{"FK_" + table}</option>
                       })}
 
                     </select>

@@ -5,15 +5,10 @@ export function generateXML(nodes, edges, panelState) {
 xsi:noNamespaceSchemaLocation="schema.xsd">
 
 <psm-model>
-    <so so-name="${panelState.selectedOS}"/>
-    <technology tech-name="${panelState.selectedTech}" version="0.0.0" port="${panelState.port}"/>
+    <so so-name="${panelState.selectedOS.toUpperCase()}"/>
+    <technology tech-name="${panelState.selectedTech.toUpperCase()}" version="0.0.0" port="${panelState.port}"/>
     <project name="${panelState.projectName}"/>
   </psm-model>
-
-  <csm-model>
-    <login has="${panelState.loginRequired.toLowerCase()}">
-    </login>
-  </csm-model>
 
   <relational-model>
   ${nodes.map(table =>
@@ -42,14 +37,22 @@ function generateAttribute(table) {
 export function generateRelation(edges, id, nodes) {
 
   const foundEdges = edges.filter(edge => edge.target === id);
-  if(foundEdges.length > 0){
+  if (foundEdges.length > 0) {
     return `<relations>
-              ${foundEdges.map(edge =>
-                `<relation multiplicity="${edge.data.label}" table="${nodes.find(node => node.id == edge.source).data.headerValue }" attribute="ID_CLIENTE" />`
-              ).join('\n')}
-            </relations>
+${foundEdges.map(edge => {
+      let nodo_aux = nodes.find(node => node.id == edge.source).data
+      console.log("PEPE" + nodo_aux.headerValue)
+      console.log(nodo_aux.rows)
+      return (
+        `              <relation multiplicity="${edge.data.label}" table="${nodo_aux.headerValue}" attribute="${nodo_aux.rows.map((row) => 
+          row[0].value.includes('PK') ? row[1].value : ''
+          ).join('')}" />`)
+    }
+    ).join('\n')}
+      </relations>
     `
   }
+  return ''
 
   // <relations>
 
