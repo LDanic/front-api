@@ -65,7 +65,7 @@ function CustomEdge({ id, source, target, markerEnd, data }) {
           className="nodrag nopan custom-edge-label"
         >
           <select value={labelValue} onChange={handleSelectChange} required>
-            <option disabled value="">Selecciona la relación</option>
+            <option disabled hidden value="">Selecciona la relación</option>
             <option value="1:1">1:1</option>
             <option value="1:n">1:n</option>
             <option value="0:n">0:n</option>

@@ -49,6 +49,7 @@ function createNode() {
     },
     data: {
       idnode: id,
+      conectedTables: []
     },
   };
 }
@@ -62,10 +63,14 @@ export default function App() {
     (params) =>
       setEdges((eds) =>
         addEdge(
-          {...params,
+          {
+            ...params,
             type: "customEdge",
             markerEnd: { type: MarkerType.ArrowClosed },
-            data: { label: "" }
+            data: {
+              label: "",
+              conectedTables: []
+            }
           }, eds)),
     [setEdges]
   );
@@ -74,6 +79,16 @@ export default function App() {
   const handlePanelStateChange = useCallback((panelState) => {
     setPanelState(panelState);
   }, []);
+
+
+  useEffect(() => {
+    nodes.forEach((node) => {
+      const foundEdges = edges.filter(edge => edge.target === node.id);
+      node.data.conectedTables = foundEdges.map(edge =>
+        nodes.find(node => node.id == edge.source).data.headerValue
+      );
+    });
+  }, [edges, nodes]);
 
 
 
@@ -104,13 +119,13 @@ export default function App() {
           <button style={{ marginLeft: '100px' }} onClick={() => {
             console.log(nodes)
             //  edges.forEach((edge) => {
-               console.log(edges);
+            console.log(edges);
             //  });
 
             // console.log(generateXML(nodes, edges, panelState))
           }}>Print Rows</button>
         </Panel>
-        <Controls className='react-flow-controls'/>
+        <Controls className='react-flow-controls' />
       </ReactFlow>
     </div>
   );

@@ -45,10 +45,6 @@ const CustomNode = ({ data, isConnectable }) => {
     setCheckboxState(updatedRows);
   };
 
-  useEffect(() => {
-    console.log("pepe")
-    console.log(checkboxState)
-  }, [checkboxState]);
 
   useEffect(() => {
     data.rows = rows;
@@ -67,8 +63,9 @@ const CustomNode = ({ data, isConnectable }) => {
       </div>
       {rows.map((row, rowIndex) => (
         <div key={rowIndex} className="custom-node-row">
-          {row.map((col, colIndex) => (
-            <div key={colIndex} className="custom-node-column">
+          {row.map((col, colIndex) => {
+
+            return (<div key={colIndex} className="custom-node-column">
 
               {col.type === "label" ? (
                 <p>
@@ -88,22 +85,32 @@ const CustomNode = ({ data, isConnectable }) => {
 
                 <DropdownCheckboxForm
                   onCheckboxChange={(selectedOptions) => handleCheckboxChange(selectedOptions, rowIndex, colIndex)}
-                  value={col.value} 
+                  value={col.value}
                   rowIndex={rowIndex}
                   nodeIndex={data.idnode} />
 
               ) : (
                 <>
-                  {false ? <input
+
+                  {!row[0].value.includes("FK") ? <input
                     type="text"
                     value={col.value}
                     onChange={(e) => handleInputChange(e, rowIndex, colIndex)}
-                  /> : <>{ }</>}
+                  /> : <>
+                    <select name="" id="" required defaultValue={""}>
+                      <option disabled hidden value=""> {data.conectedTables.length == 0 ? "Conecta una tabla" : "Selecciona una tabla"} </option>
+                      {data.conectedTables.map((table) => {
+                        return <option value={table}>{table}</option>
+                      })}
+
+                    </select>
+                  </>
+                  }
                 </>
 
               )}
-            </div>
-          ))}
+            </div>)
+          })}
           {rowIndex !== 0 && (
             <button onClick={() => deleteRow(rowIndex)} className="delete-row-button">
               <FontAwesomeIcon icon={faTrash} style={{ color: "#ffffff", }} />
