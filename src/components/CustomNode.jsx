@@ -1,25 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import { Handle, Position } from '@xyflow/react';
+import React, { useEffect, useState } from "react";
+import { Handle, Position } from "@xyflow/react";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import './NodeStyles.css';
-import DropdownCheckboxForm from './CheckboxComponent';
+import "./NodeStyles.css";
+import DropdownCheckboxForm from "./CheckboxComponent";
 
 const CustomNode = ({ data, isConnectable }) => {
   const initialColumns = [
-    { id: 1, type: 'label', value: 'Restricciones' },
-    { id: 2, type: 'label', value: 'Nombre' },
-    { id: 3, type: 'label', value: 'Tipo Dato' },
+    { id: 1, type: "label", value: "Restricciones" },
+    { id: 2, type: "label", value: "Nombre" },
+    { id: 3, type: "label", value: "Tipo Dato" },
   ];
 
   const [rows, setRows] = useState([[...initialColumns]]); // Inicialmente una fila con las columnas iniciales
-  const [headerValue, setHeaderValue] = useState('');
-
+  const [headerValue, setHeaderValue] = useState("");
 
   const addRow = () => {
-    const newRow = [{ id: 1, type: 'select-res', value: "" },
-    { id: 2, type: 'input', value: "" },
-    { id: 3, type: 'select-dt', value: "INT" }];
+    const newRow = [
+      { id: 1, type: "select-res", value: "" },
+      { id: 2, type: "input", value: "" },
+      { id: 3, type: "select-dt", value: "INT" },
+    ];
     setRows([...rows, newRow]); // Agrega la nueva fila al estado de filas
   };
 
@@ -29,7 +30,6 @@ const CustomNode = ({ data, isConnectable }) => {
       setRows(updatedRows);
     }
   };
-
 
   const handleInputChange = (event, rowIndex, colIndex) => {
     const updatedRows = [...rows];
@@ -44,7 +44,6 @@ const CustomNode = ({ data, isConnectable }) => {
     updatedRows[rowIndex][colIndex].value = selectedOptions;
     setCheckboxState(updatedRows);
   };
-
 
   useEffect(() => {
     data.rows = rows;
@@ -64,64 +63,83 @@ const CustomNode = ({ data, isConnectable }) => {
       {rows.map((row, rowIndex) => (
         <div key={rowIndex} className="custom-node-row">
           {row.map((col, colIndex) => {
-
-            return (<div key={colIndex} className="custom-node-column">
-
-              {col.type === "label" ? (
-                <p>
-                  {col.value}
-                </p>
-              ) : col.type === "select-dt" ? (
-                <select
-                  value={col.value}
-                  onChange={(e) => handleInputChange(e, rowIndex, colIndex)}
-                >
-                  <option value="INT">INT</option>
-                  <option value="DECIMAL">DECIMAL</option>
-                  <option value="VARCHAR">VARCHAR</option>
-                  <option value="BINARY">BINARY</option>
-                </select>
-              ) : col.type === "select-res" ? (
-
-                <DropdownCheckboxForm
-                  onCheckboxChange={(selectedOptions) => handleCheckboxChange(selectedOptions, rowIndex, colIndex)}
-                  value={col.value}
-                  rowIndex={rowIndex}
-                  nodeIndex={data.idnode} />
-
-              ) : (
-                <>
-
-                  {!row[0].value.includes("FK") ? <input
-                    type="text"
+            return (
+              <div key={colIndex} className="custom-node-column">
+                {col.type === "label" ? (
+                  <p>{col.value}</p>
+                ) : col.type === "select-dt" ? (
+                  <select
                     value={col.value}
                     onChange={(e) => handleInputChange(e, rowIndex, colIndex)}
-                  /> : <>
-                    <select
-                      value={col.value}
-                      onChange={(e) => handleInputChange(e, rowIndex, colIndex)}
-                      required defaultValue={""}>
-                      <option disabled hidden value=""> {data.conectedTables.length == 0 ? "Conecta una tabla" : "Selecciona una tabla"} </option>
-                      {data.conectedTables.map((table, index) => {
-                        return <option key={index} value={"FK_" + table}>{"FK_" + table}</option>
-                      })}
-
-                    </select>
+                  >
+                    <option value="INT">INT</option>
+                    <option value="DECIMAL">DECIMAL</option>
+                    <option value="VARCHAR">VARCHAR</option>
+                    <option value="BINARY">BINARY</option>
+                  </select>
+                ) : col.type === "select-res" ? (
+                  <DropdownCheckboxForm
+                    onCheckboxChange={(selectedOptions) =>
+                      handleCheckboxChange(selectedOptions, rowIndex, colIndex)
+                    }
+                    value={col.value}
+                    rowIndex={rowIndex}
+                    nodeIndex={data.idnode}
+                  />
+                ) : (
+                  <>
+                    {!row[0].value.includes("FK") ? (
+                      <input
+                        type="text"
+                        value={col.value}
+                        onChange={(e) =>
+                          handleInputChange(e, rowIndex, colIndex)
+                        }
+                      />
+                    ) : (
+                      <>
+                        <select
+                          value={col.value}
+                          onChange={(e) =>
+                            handleInputChange(e, rowIndex, colIndex)
+                          }
+                          required
+                          defaultValue={""}
+                        >
+                          <option disabled hidden value="">
+                            {" "}
+                            {data.conectedTables.length == 0
+                              ? "Conecta una tabla"
+                              : "Selecciona una tabla"}{" "}
+                          </option>
+                          {data.conectedTables.map((table, index) => {
+                            return (
+                              <option key={index} value={"FK_" + table}>
+                                {"FK_" + table}
+                              </option>
+                            );
+                          })}
+                        </select>
+                      </>
+                    )}
                   </>
-                  }
-                </>
-
-              )}
-            </div>)
+                )}
+              </div>
+            );
           })}
           {rowIndex !== 0 && (
-            <button onClick={() => deleteRow(rowIndex)} className="delete-row-button">
-              <FontAwesomeIcon icon={faTrash} style={{ color: "#ffffff", }} />
+            <button
+              onClick={() => deleteRow(rowIndex)}
+              className="delete-row-button"
+            >
+              <FontAwesomeIcon icon={faTrash} style={{ color: "#ffffff" }} />
             </button>
           )}
         </div>
       ))}
-      <button onClick={addRow} className="add-row-button">Add atribute</button>
+      <button onClick={addRow} className="add-row-button">
+        Add atribute
+      </button>
       <Handle
         type="source"
         position={Position.Right}
