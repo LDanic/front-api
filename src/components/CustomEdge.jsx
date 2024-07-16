@@ -1,9 +1,13 @@
-import { getBezierPath, useInternalNode, BaseEdge,
+import {
+  getBezierPath,
+  useInternalNode,
+  BaseEdge,
   EdgeLabelRenderer,
-  useReactFlow,} from "@xyflow/react";
+  useReactFlow,
+} from "@xyflow/react";
 
 import { getEdgeParams } from "../utils/edgesManager.js";
-import './EdgesStyles.css';
+import "./EdgesStyles.css";
 
 function CustomEdge({ id, source, target, markerEnd, data }) {
   const { setEdges } = useReactFlow();
@@ -25,7 +29,7 @@ function CustomEdge({ id, source, target, markerEnd, data }) {
     sourcePosition: sourcePos,
     targetPosition: targetPos,
     targetX: tx,
-    targetY: ty
+    targetY: ty,
   });
 
   const handleSelectChange = (event) => {
@@ -49,23 +53,26 @@ function CustomEdge({ id, source, target, markerEnd, data }) {
   const labelValue = data?.label || ""; // Valor predeterminado si data.label no está definido
   return (
     <>
-      <BaseEdge 
-      id={id} 
-      path={edgePath} 
-      markerEnd={markerEnd}
-      className="custom-edge"/>
+      <BaseEdge
+        id={id}
+        path={edgePath}
+        markerEnd={markerEnd}
+        className="custom-edge"
+      />
 
       <EdgeLabelRenderer>
         <div
           style={{
-            position: 'absolute',
+            position: "absolute",
             transform: `translate(-50%, -50%) translate(${labelX}px,${labelY}px)`,
-            pointerEvents: 'all',
+            pointerEvents: "all",
           }}
           className="nodrag nopan custom-edge-label"
         >
           <select value={labelValue} onChange={handleSelectChange} required>
-            <option disabled hidden value="">Selecciona la relación</option>
+            <option disabled hidden value="">
+              Selecciona la relación
+            </option>
             <option value="1:1">1:1</option>
             <option value="1:n">1:n</option>
             <option value="0:n">0:n</option>
