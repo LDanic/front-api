@@ -1,32 +1,60 @@
+:root {
+  --primary: cadetblue;
+  --priDarker: #4C7E80;
+  --text: #1a1a1a;
+  --borders: #414141; 
+  /* #posible color: #827081;   BD9EAD;*/
+
+}
+
 .custom-node {
   display: flex;
   flex-direction: column;
   /* Establece la dirección de los elementos */
-  background-color: white;
-  padding: 10px;
+  background-color: var(--primary);
+  padding-bottom: 10px;
+  border-radius: 10px;
 }
 
 .custom-node-header {
   text-align: center;
-  font-weight: bold;
-  color: black;
+  background-color: var(--priDarker);
+  border-radius: 10px 10px 0px 0px;
 }
 
 .custom-node-header input {
-  background-color: white;
+  background-color: var(--priDarker);
   border: none;
   text-align: center;
   font-weight: bold;
-  color: black;
+  color: var(--text);
+  outline: none;
+  border-bottom: 1px solid var(--borders);
 }
 
+::placeholder {
+  color: var(--borders);
+  opacity: 1; /* Firefox */
+}
+
+.custom-node-row-first{
+  display: flex;
+  background-color: var(--priDarker);
+}
+
+.custom-node-row-first > div{
+  border: none;
+}
 .custom-node-row {
   display: flex;
 }
 
 .custom-node-column {
-  border: 1px solid black;
-  display: flex;
+  text-align: center;
+  border-bottom: 1px solid var(--borders);
+  padding: 5px;
+  display: grid;
+  align-items: center;
 }
 
 .custom-node-column input,
@@ -37,38 +65,62 @@ form {
   /* Ocupa todo el espacio disponible en la columna */
   border: none;
   padding: 5px;
-  background-color: cadetblue;
+  background-color: var(--primary);
+  text-align: center;
+  color: var(--text);
 }
 
 .custom-node-column p {
+  background-color: var(--priDarker);
+  margin: 5px 0px;
   color: rgb(39, 39, 39);
-  font-weight: bold;
+
 }
 
+.custom-node-column input {
+  outline: none;
+  border-bottom: 1px solid var(--borders);
+}
+
+
 .custom-node-column select {
+  height: 30px;
+  border: 1px solid var(--borders);
+  border-radius: 5px;
+  outline: none;
+  padding: 0 10px;
+  cursor: pointer;
+  text-align: left;
   width: 160px;
 }
 
 .add-row-button {
-  margin-top: 5px;
+  margin-top: 10px;
+  width:fit-content;
+  border-radius: 13px;
+  margin-left: 69%;
+  background-color: var(--hover);
+  color: var(--text);
 }
 
 .delete-row-button {
-  background-color: #eb3c3a;
+  background-color: var(--primary);
+  --icon-color: #1a1a1a;
   border: none;
-  color: white;
-  border-radius: 50%;
+  border-radius: 30%;
   width: 30px;
   height: 30px;
   font-size: 15px;
   cursor: pointer;
   padding: 0;
   margin-left: 5px;
-  margin-top: 11px;
+  margin-top: 14px;
+  margin-right: 7px;
 }
 
 .delete-row-button:hover {
-  background-color: #9a1d1b;
+  background-color: #ef4444;
+  --icon-color: #ffffff;
 }
 
 .select-restriction-btn {
@@ -83,7 +135,6 @@ form {
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: cadetblue;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
@@ -105,20 +156,20 @@ form {
 
 .dropdown:hover .dropdown-content {
   display: block;
-  background-color: cadetblue;
+  background-color: var(--hover);
   border: 1px solid black;
   box-shadow: 0px 0px 50px #000000;
 }
 
 .dropdown button {
   background-color: inherit;
-  background-color: rgba(0, 0, 0, 0);
-  border: 1px solid rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--borders);
   cursor: pointer;
+  color: var(--text);
 }
 
 .dropdown button:hover {
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: var(--hover);
 }
 
 .dropdown-content > label > input {

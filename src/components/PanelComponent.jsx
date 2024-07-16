@@ -49,7 +49,8 @@ function PanelComponent({ onStateChange }) {
         padding: "20px",
         borderRight: "1px solid #ccc",
         height: "100vh",
-        backgroundColor: "black",
+        width: '35vh', 
+        backgroundColor: '#2d2d2d'
       }}
     >
       <label htmlFor="projectName">Project Name:</label>
@@ -62,6 +63,8 @@ function PanelComponent({ onStateChange }) {
           marginTop: "10px",
           padding: "10px",
           width: "calc(100% - 20px)",
+          backgroundColor: '#222222',
+          border:'1px solid #414141'
         }}
       />
       {/* Technology Section */}
@@ -138,32 +141,6 @@ function PanelComponent({ onStateChange }) {
           <label htmlFor="mac">Mac</label>
         </div>
       </div>
-      {/* Login Required Section */}
-      <div style={{ marginTop: "20px" }}>
-        <label>Login:</label>
-        <div>
-          <input
-            type="radio"
-            id="loginTrue"
-            name="login"
-            value="True"
-            checked={loginRequired === "True"}
-            onChange={handleLoginChange}
-          />
-          <label htmlFor="loginTrue">True</label>
-        </div>
-        <div>
-          <input
-            type="radio"
-            id="loginFalse"
-            name="login"
-            value="False"
-            checked={loginRequired === "False"}
-            onChange={handleLoginChange}
-          />
-          <label htmlFor="loginFalse">False</label>
-        </div>
-      </div>
       {/* Port Section */}
       <div style={{ marginTop: "20px" }}>
         <label>Port:</label>
@@ -178,6 +155,8 @@ function PanelComponent({ onStateChange }) {
             marginTop: "10px",
             padding: "10px",
             width: "calc(100% - 20px)",
+            backgroundColor: '#222222',
+            border:'1px solid #414141'
           }}
         />
       </div>

@@ -1,10 +1,20 @@
+.root{
+  --hover: #c47775;
+  --text: #1a1a1a;
+}
+
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-  }
+    font-family: 'Manrope';
+}
   
-  .reactflow-wrapper {
+.reactflow-wrapper {
     width: 100vw;
     height: 100vh;
-  }
+}
+
+.add-button{
+  background-color: var(--hover);
+  color: var(--text);
+}
   

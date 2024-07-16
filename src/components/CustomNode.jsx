@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Handle, Position } from "@xyflow/react";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./NodeStyles.css";
 import DropdownCheckboxForm from "./CheckboxComponent";
@@ -56,12 +56,14 @@ const CustomNode = ({ data, isConnectable }) => {
         <input
           type="text"
           value={headerValue}
+          onClick={(e) => e.target.placeholder = ""}
+          onBlur={(e) => e.target.value === "" ? e.target.placeholder = "Nombre de la entidad" : ""}
           onChange={(e) => setHeaderValue(e.target.value)}
           placeholder="Nombre de la entidad"
         />
       </div>
       {rows.map((row, rowIndex) => (
-        <div key={rowIndex} className="custom-node-row">
+        <div key={rowIndex} className={rowIndex === 0 ? 'custom-node-row-first' : 'custom-node-row'}>
           {row.map((col, colIndex) => {
             return (
               <div key={colIndex} className="custom-node-column">
@@ -92,6 +94,10 @@ const CustomNode = ({ data, isConnectable }) => {
                       <input
                         type="text"
                         value={col.value}
+                        onClick={(e) => e.target.placeholder = ""}
+                        onBlur={(e) => 
+                          e.target.value === "" ? e.target.placeholder = "Nombre del atributo" : ""}
+                        placeholder="Nombre del atributo"
                         onChange={(e) =>
                           handleInputChange(e, rowIndex, colIndex)
                         }
@@ -104,7 +110,6 @@ const CustomNode = ({ data, isConnectable }) => {
                             handleInputChange(e, rowIndex, colIndex)
                           }
                           required
-                          defaultValue={""}
                         >
                           <option disabled hidden value="">
                             {" "}
@@ -128,11 +133,11 @@ const CustomNode = ({ data, isConnectable }) => {
             );
           })}
           {rowIndex !== 0 && (
-            <button
-              onClick={() => deleteRow(rowIndex)}
+            <button 
+              onClick={() => deleteRow(rowIndex)} 
               className="delete-row-button"
             >
-              <FontAwesomeIcon icon={faTrash} style={{ color: "#ffffff" }} />
+              <FontAwesomeIcon icon={faTrashCan} style={{ color: "var(--icon-color)" }} />
             </button>
           )}
         </div>

@@ -1,3 +1,23 @@
+:root {
+  --primary: cadetblue;
+  --priDarker: #4C7E80;
+  --hover: #c47775;
+  --text: #1a1a1a;
+  --borders: #414141; 
+  /* #posible color: #827081;*/
+}
+
 .custom-edge {
     stroke-width: 2px;
-  }
+}
+
+.edge-select{
+  background-color: var(--hover);
+  height: 30px;
+  border: 1px solid var(--borders);
+  border-radius: 5px;
+  outline: none;
+  padding: 0 10px;
+  cursor: pointer;
+  width: 160px;
+}

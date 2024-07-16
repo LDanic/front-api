@@ -138,9 +138,10 @@ export default function App() {
         edgeTypes={edgeTypes}
         connectionMode={ConnectionMode.Loose}
       >
-        <Background variant="dots" gap={12} size={1} />
+
+        <Background className='background' variant="dots" gap={12} size={1} />
         <Panel position="top-right">
-          <button onClick={() => setNodes((nodes) => [...nodes, createNode()])}>
+          <button className= "add-button" onClick={() => setNodes((nodes) => [...nodes, createNode()])}>
             Add table
           </button>
         </Panel>
@@ -150,7 +151,7 @@ export default function App() {
         </Panel>
 
         <Panel position="bottom-left">
-          <button style={{ marginLeft: "100px" }} onClick={httpHandler}>
+          <button style={{ marginLeft: '90px', backgroundColor: 'black' }} onClick={httpHandler}>
             Send
           </button>
         </Panel>
